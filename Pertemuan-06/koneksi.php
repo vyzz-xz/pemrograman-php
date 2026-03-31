@@ -1,5 +1,3 @@
-
-// Koneksi Database
 <?php
 $host = "localhost";
 $user = "root";

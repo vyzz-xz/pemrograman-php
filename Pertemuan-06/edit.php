@@ -3,7 +3,7 @@ include 'koneksi.php';
 
 $id = $_GET['id'];
 $data = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE id='$id'");
-while ($d = mysqli_fetch_array($data));
+$d = mysqli_fetch_array($data);
 ?>
 
 <h2>Edit Data</h2>
@@ -14,4 +14,4 @@ while ($d = mysqli_fetch_array($data));
     Email: <input type="email" name="email" value="<?= $d['email']; ?>"><br>
 
     <button type="submit">Update</button>
-?>
+</form>
