@@ -86,7 +86,6 @@ include 'koneksi.php';
                                             <a href="edit.php?id=<?= $d['id']; ?>" class="btn btn-sm btn-success px-3 me-1">Edit</a>
                                         
                 <button type="button" class="btn btn-sm btn-danger px-3" data-bs-toggle="modal" data-bs-target="#hapusModal<?= $d['id']; ?>">Hapus</button>
-
                 <div class="modal fade text-start" id="hapusModal<?= $d['id']; ?>" tabindex="-1" aria-labelledby="hapusModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
@@ -104,18 +103,17 @@ include 'koneksi.php';
                         </div>
                     </div>
                 </div>
-                                            
-                </td>
-                </tr>
-<?php } ?>
-            </tbody>
-            </table>
-        </div>
-        </div>
-    </div>
-    </div>
+            </td>
+        </tr>
+        <?php } ?>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
+</div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
