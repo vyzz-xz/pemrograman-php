@@ -1,10 +1,13 @@
 <?php
+// Array bandara asal dan tujuan
 $bandaraAsal = ["Soekarno Hatta", "Husein Sastranegara", "Abdul Rachman Saleh", "Juanda"];
 $bandaraTujuan = ["Ngurah Rai", "Hasanuddin", "Inanwatan", "Sultan Iskandar Muda"];
 
+// Sorting bandara asal dan tujuan
 sort($bandaraAsal);
 sort($bandaraTujuan);
 
+// Inisialisasi variabel buat nyimpen hasil perhitungan
 if (isset($_POST["kirim"])) {
     $noKeberangkatan = 1;
     $tanggalInput = $_POST["tanggalInput"];
