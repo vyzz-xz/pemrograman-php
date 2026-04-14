@@ -69,6 +69,7 @@ if (isset($_POST["kirim"])) {
 </head>
 <body>
     <div class="container">
+        <!-- Input Form -->
         <section class="inputForm">
             <h3 class="title">INPUT FORM</h3>
             <div class="content">
