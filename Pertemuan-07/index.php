@@ -3,7 +3,7 @@
 $bandaraAsal = ["Soekarno Hatta", "Husein Sastranegara", "Abdul Rachman Saleh", "Juanda"];
 $bandaraTujuan = ["Ngurah Rai", "Hasanuddin", "Inanwatan", "Sultan Iskandar Muda"];
 
-// Sorting bandara asal dan tujuan
+// Sorting bandara
 sort($bandaraAsal);
 sort($bandaraTujuan);
 
