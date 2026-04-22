@@ -1,0 +1,57 @@
+:root {
+    --bg-white: #FFFFFF;
+    --bg-light-gray: #F8F9FA; 
+    --text-dark: #1A1A1A;
+    --text-muted: #6C757D;
+    --accent-purple: #6B21A8; 
+    --accent-hover: #8B5CF6;
+}
+
+body {
+    background-color: var(--bg-white);
+    color: var(--text-dark);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.card-produk-custom {
+    background: var(--bg-white);
+    border: 1px solid rgba(0, 0, 0, 0.08); 
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.card-produk-custom:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent-purple);
+    box-shadow: 0 12px 24px rgba(107, 33, 168, 0.1); 
+}
+
+/* --- HERO SECTION --- */
+.hero-section {
+    background-color: var(--bg-light-gray);
+    border-radius: 20px;
+    padding: 60px 40px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-text h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+    max-width: 500px;
+}
