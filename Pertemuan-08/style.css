@@ -46,6 +46,7 @@ h2, h4 {
     padding: 15px 25px;
     font-weight: 600;
     font-size: 1.1rem;
+    text-align: center;
 }
 
 .card-body {
@@ -90,14 +91,92 @@ tr:hover {
     border-radius: 4px;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
+.form-label {
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    display: block;
+    font-size: 0.9rem;
 }
 
-@media (min-width: 768px) {
-    .grid {
-        grid-template-columns: 1fr 2fr;
-    }
+.form-control, .form-select {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+    background-color: #f8fafc;
+}
+
+.form-control:focus, .form-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: var(--white);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none !important;
+    display: inline-block;
+    font-family: inherit;
+    transition: background-color 0.3s, transform 0.1s;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--white) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+}
+
+.btn-secondary {
+    background-color: #e2e8f0;
+    color: var(--text-dark) !important;
+}
+
+.btn-secondary:hover {
+    background-color: #cbd5e1;
+}
+
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    border-radius: 6px;
+    margin-right: 5px;
+}
+
+.btn-warning {
+    background-color: #f59e0b;
+    color: white !important;
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    color: white !important;
+}
+
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }

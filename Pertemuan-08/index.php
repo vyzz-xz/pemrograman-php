@@ -4,33 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data KRS Mahasiswa</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Sistem Akademik - Data KRS</title>
+    <link rel="stylesheet" href="style.css?v=1">
 </head>
 <body>
 
     <div class="container">
         <h4>Sistem Informasi Akademik</h4>
         
+        <div class="header-actions">
+            <h4 style="margin: 0; color: #1e293b; font-size: 1.2rem;">Data Kartu Rencana Studi (KRS)</h4>
+            <a href="tambah.php" class="btn btn-primary">+ Tambah Data KRS</a>
+        </div>
+        
         <div class="card">
             <div class="card-header">
-                Data Kartu Rencana Studi (KRS)
+                Daftar Pengambilan Mata Kuliah
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table>
                         <thead>
                             <tr>
-                                <th style="text-align: center;">No</th>
-                                <th>Nama Lengkap</th>
-                                <th>Mata Kuliah</th>
-                                <th>Keterangan Pengambilan SKS</th>
+                                <th style="text-align: center; width: 5%;">No</th>
+                                <th width="20%">Nama Lengkap</th>
+                                <th width="20%">Mata Kuliah</th>
+                                <th width="40%">Keterangan</th>
+                                <th style="text-align: center; width: 15%;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             $no = 1;
                             $query = "SELECT 
+                                        krs.id,
                                         mahasiswa.nama AS nama_mhs, 
                                         matakuliah.nama AS nama_mk, 
                                         matakuliah.jumlah_sks 
@@ -54,11 +61,17 @@
                                         <span class="text-highlight"><?= $row['nama_mk']; ?></span> 
                                         dengan beban <b><?= $row['jumlah_sks']; ?> SKS</b>.
                                     </td>
+                                    <td style="text-align: center; vertical-align: middle;">
+                                    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: nowrap;">
+                                        <a href="edit.php?id=<?= $row['id']; ?>" class="btn btn-sm btn-warning" style="margin: 0;">Edit</a>
+                                        <a href="hapus.php?id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" style="margin: 0;" onclick="return confirm('Yakin ingin menghapus KRS ini?')">Hapus</a>
+                                    </div>
+                                </td>
                                 </tr>
                             <?php 
                                 } 
                             } else {
-                                echo "<tr><td colspan='4' style='text-align:center; padding:20px;'>Belum ada data KRS.</td></tr>";
+                                echo "<tr><td colspan='5' style='text-align:center; padding:30px; color:#94a3b8;'>Belum ada data KRS. Silakan tambah data.</td></tr>";
                             }
                             ?>
                         </tbody>
@@ -66,10 +79,6 @@
                 </div>
             </div>
         </div>
-        
-        <p style="text-align: center; color: #94a3b8; font-size: 0.8rem; margin-top: 20px;">
-            &copy; 2026 - Muhamad Hafiz
-        </p>
     </div>
 
 </body>
