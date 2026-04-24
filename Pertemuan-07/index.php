@@ -1,157 +1,75 @@
 <?php
-// Array bandara asal dan tujuan
-$bandaraAsal = ["Soekarno Hatta", "Husein Sastranegara", "Abdul Rachman Saleh", "Juanda"];
-$bandaraTujuan = ["Ngurah Rai", "Hasanuddin", "Inanwatan", "Sultan Iskandar Muda"];
+include 'koneksi.php';
 
-// Sorting bandara
-sort($bandaraAsal);
-sort($bandaraTujuan);
-
-// Inisialisasi variabel buat nyimpen hasil perhitungan
-if (isset($_POST["kirim"])) {
-    $noKeberangkatan = 1;
-    $tanggalInput = $_POST["tanggalInput"];
-    $NamaMaskapai = $_POST["inputNamaMaskapai"];
-    $asalPenerbangan = $_POST["inputAsalPenerbangan"] ?? '';
-    $tujuanPenerbangan = $_POST["inputTujuanPenerbangan"] ?? '';
-    $hargaTiket = (int)$_POST["inputHarga"];
-
-    switch (strtolower($asalPenerbangan)) {
-        case strtolower($bandaraAsal[0]):
-            $pajakAsal = 40000;
-            break;
-        case strtolower($bandaraAsal[1]):
-            $pajakAsal = 50000; 
-            break;
-        case strtolower($bandaraAsal[2]):
-            $pajakAsal = 30000; 
-            break;
-        case strtolower($bandaraAsal[3]):
-            $pajakAsal = 65000; 
-        default:
-            $pajakAsal = 0;
-            break;
-    }
-
-    switch (strtolower($tujuanPenerbangan)) {
-        case strtolower($bandaraTujuan[0]):
-            $pajakTujuan = 70000; 
-            break;
-        case strtolower($bandaraTujuan[1]):
-            $pajakTujuan = 90000; 
-            break;
-        case strtolower($bandaraTujuan[2]):
-            $pajakTujuan = 85000; 
-            break;
-        case strtolower($bandaraTujuan[3]):
-            $pajakTujuan = 60000;
-            break;
-        default:
-            $pajakTujuan = 0;
-            break;
-    }
-
-    $totalPajak = $pajakAsal + $pajakTujuan;
-    $totalHargaTiket = $totalPajak + $hargaTiket;
-}
+$data = mysqli_query($koneksi, 
+    "SELECT k.id, m.nama AS nama_mhs, mk.nama AS nama_mk, mk.jumlah_sks
+    FROM krs k
+    JOIN mahasiswa m ON k.mahasiswa_npm = m.npm
+    JOIN matakuliah mk ON k.matakuliah_kodemk = mk.kodemk
+    ORDER BY k.id ASC");
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data KRS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;0,900;1,100&display=swap" rel="stylesheet">
-    <title>Penghitung Harga Tiket</title>
 </head>
 <body>
-    <div class="container">
-        <!-- Input Form -->
-        <section class="inputForm">
-            <h3 class="title">INPUT FORM</h3>
-            <div class="content">
-                <form action="" method="post">
-                    <input type="hidden" name="tanggalInput" value="<?=date("l jS \of F Y h:i:s A")?>">
-                    
-                    <label for="inputNamaMaskapai">Nama Maskapai</label>
-                    <br>
-                    <input type="text" name="inputNamaMaskapai" id="inputNamaMaskapai" required>
-                    <br>
-                    
-                    <label for="inputAsalPenerbangan">Pilih Bandara Asal:</label>
-                    <br>
-                    <select name="inputAsalPenerbangan" id="inputAsalPenerbangan" required>
-                        <option value="" disabled selected>Pilih Bandara</option>
-                        <?php foreach ($bandaraAsal as $bA) {?>
-                            <option value="<?php echo $bA?>"><?php echo $bA?></option>
-                        <?php } ?>
-                    </select>
-                    <br>
-                    
-                    <label for="inputTujuanPenerbangan">Pilih Bandara Tujuan:</label>
-                    <br>
-                    <select name="inputTujuanPenerbangan" id="inputTujuanPenerbangan" required>
-                        <option value="" disabled selected>Pilih Bandara</option>
-                        <?php foreach ($bandaraTujuan as $bT) {?>
-                            <option value="<?php echo $bT?>"><?php echo $bT?></option>
-                        <?php } ?>
-                    </select>
-                    <br>
-                    
-                    <label for="inputHarga">Harga Tiket</label>
-                    <br>
-                    <input type="number" name="inputHarga" id="inputHarga" required>
-                    <br>
-                    
-                    <button type="submit" name="kirim">Hitung</button>  
-                </form>
-            </div>
 
-            <footer>
-                <p>&copy;2025 Brandon H.L.</p>
-            </footer>
-        </section>
-        <?php if (isset($_POST["kirim"])) {?>
-            <section class="information">
-                <h3 class="title">INFORMASI</h3>
-                <div class="content">
-                    <label for="nomor">Nomor</label>
-                    <br>
-                    <input type="text" name="nomor" id="nomor" value="<?=$noKeberangkatan?>" disabled>
-                    <br>
-                    <label for="tanggal">Tanggal</label>
-                    <br>
-                    <input type="text" name="tanggal" id="tanggal" value="<?=$tanggalInput?>" disabled>
-                    <br>
-                    <label for="maskapai">Maskapai</label>
-                    <br>
-                    <input type="text" name="maskapai" id="maskapai" value="<?=$NamaMaskapai?>" disabled>
-                    <br>
-                    <label for="asal">Asal Penerbangan</label>
-                    <br>
-                    <input type="text" name="asal" id="asal" value="<?=$asalPenerbangan?>" disabled>
-                    <br>
-                    <label for="tujuan">Tujuan Penerbangan</label>
-                    <br>
-                    <input type="text" name="tujuan" id="tujuan" value="<?=$tujuanPenerbangan?>" disabled>
-                    <br>
-                    <label for="hargaTiketAwal">Harga Tiket</label>
-                    <br>
-                    <input type="text" name="hargaTiketAwal" id="hargaTiketAwal" value="Rp<?=number_format($hargaTiket, 0, ',', '.')?>" disabled>
-                    <br>
-                    <label for="pajak">Total Pajak</label>
-                    <br>
-                    <input type="text" name="pajak" id="pajak" value="Rp<?=number_format($totalPajak, 0, ',', '.')?>" disabled>
-                    <br>
-                    <label for="totalHargaTiket">Total Harga Tiket</label>
-                    <br>
-                    <input type="text" name="totalHargaTiket" id="totalHargaTiket" value="Rp<?=number_format($totalHargaTiket, 0, ',', '.')?>" disabled>
-                    <br>
-                </div> </section>
-        <?php } ?>
+<nav class="navbar bg-white border-bottom">
+    <div class="container-fluid justify-content-center">
+        <span class="navbar-brand">Sistem KRS Mahasiswa</span>
+    </div>
+</nav>
+
+<div class="container my-4" style="max-width: 1000px;">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <span class="fw-semibold">Data KRS</span>
+            <a href="tambah.php" class="btn btn-dark btn-sm">+ Tambah KRS</a>
         </div>
+        <div class="card-body p-0">
+            <table class="table table-bordered table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width:50px">No</th>
+                        <th>Nama Lengkap</th>
+                        <th>Mata Kuliah</th>
+                        <th>Keterangan</th>
+                        <th style="width:110px">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                $no = 1;
+                if (mysqli_num_rows($data) > 0) {
+                    while ($row = mysqli_fetch_assoc($data)) {
+                        $ket = "<span class='ket-nama'>" . htmlspecialchars($row['nama_mhs']) . "</span> Mengambil Mata Kuliah <span class='ket-matkul'>" . htmlspecialchars($row['nama_mk']) . "</span> (" . $row['jumlah_sks'] . " SKS)";
+                        echo "<tr>
+                                <td>$no</td>
+                                <td>" . htmlspecialchars($row['nama_mhs']) . "</td>
+                                <td>" . htmlspecialchars($row['nama_mk']) . "</td>
+                                <td>$ket</td>
+                                <td>
+                                    <a href='edit.php?id=" . $row['id'] . "' class='btn btn-warning btn-sm'>Edit</a>
+                                    <a href='hapus.php?id=" . $row['id'] . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Yakin hapus?\")'>Hapus</a>
+                                </td>
+                            </tr>";
+                        $no++;
+                    }
+                } else {
+                    echo "<tr><td colspan='5' class='text-center text-muted py-3'>Belum ada data</td></tr>";
+                }
+                ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
