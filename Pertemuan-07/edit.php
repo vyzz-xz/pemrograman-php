@@ -47,7 +47,7 @@ if (isset($_POST['update'])) {
     </div>
 </nav>
 
-// Fitur Edit
+<!-- Form Edit KRS -->
 <div class="container my-4" style="max-width: 500px;">
     <div class="card">
         <div class="card-header">
@@ -61,7 +61,7 @@ if (isset($_POST['update'])) {
                 <div class="mb-3">
                     <label class="form-label">Mahasiswa</label>
                     <select name="npm" class="form-select" required>
-                        <option value="">-- Pilih Mahasiswa --</option>
+                        <option value="">Pilih Mahasiswa</option>
                         <?php while ($row = mysqli_fetch_assoc($mhs)): ?>
                             <option value="<?= $row['npm'] ?>" <?= ($row['npm'] == $krs['mahasiswa_npm']) ? 'selected' : '' ?>>
                                 <?= htmlspecialchars($row['nama']) ?>
@@ -73,7 +73,7 @@ if (isset($_POST['update'])) {
                 <div class="mb-3">
                     <label class="form-label">Mata Kuliah</label>
                     <select name="kodemk" class="form-select" required>
-                        <option value="">-- Pilih Mata Kuliah --</option>
+                        <option value="">Pilih Mata Kuliah</option>
                         <?php while ($row = mysqli_fetch_assoc($mk)): ?>
                             <option value="<?= $row['kodemk'] ?>" <?= ($row['kodemk'] == $krs['matakuliah_kodemk']) ? 'selected' : '' ?>>
                                 <?= htmlspecialchars($row['nama']) ?> (<?= $row['jumlah_sks'] ?> SKS)
