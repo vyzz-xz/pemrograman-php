@@ -1,28 +1,35 @@
 <?php
-include 'koneksi.php';
+include 'koneksi.php'; //panggil koneksi
 
+//tangkap id krs dari URL
 $id  = $_GET['id'];
+// cari data krs yang mau diedit
 $krs = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM krs WHERE id='$id'"));
 
+// kalo datanya ga ada, balik ke index.php
 if (!$krs) {
     header("Location: index.php");
     exit();
 }
 
+//siapin data buat dropdown select
 $mhs = mysqli_query($koneksi, "SELECT npm, nama FROM mahasiswa ORDER BY nama ASC");
 $mk  = mysqli_query($koneksi, "SELECT kodemk, nama, jumlah_sks FROM matakuliah ORDER BY nama ASC");
 
 $pesan = "";
 
+//prosses pas tombol di klik
 if (isset($_POST['update'])) {
     $npm    = $_POST['npm'];
     $kodemk = $_POST['kodemk'];
 
+    //cek dulu biar mhs ga ambil matkul yng sama 2x, tapi kecuali data yang lagi diedit
     $cek = mysqli_query($koneksi, "SELECT * FROM krs WHERE mahasiswa_npm='$npm' AND matakuliah_kodemk='$kodemk' AND id != '$id'");
 
     if (mysqli_num_rows($cek) > 0) {
         $pesan = "<div class='alert alert-warning'>Mahasiswa ini sudah mengambil mata kuliah tersebut!</div>";
     } else {
+        //kalo aman, update ke db
         mysqli_query($koneksi, "UPDATE krs SET mahasiswa_npm='$npm', matakuliah_kodemk='$kodemk' WHERE id='$id'");
         header("Location: index.php");
         exit();

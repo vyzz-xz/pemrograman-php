@@ -1,6 +1,7 @@
 <?php
-include 'koneksi.php';
+include 'koneksi.php'; //panggil koneksi
 
+// ambil data krs sekalian join ke tabel mahasiswa dan matkul
 $data = mysqli_query($koneksi, 
     "SELECT k.id, m.nama AS nama_mhs, mk.nama AS nama_mk, mk.jumlah_sks
     FROM krs k
@@ -20,7 +21,7 @@ $data = mysqli_query($koneksi,
 </head>
 <body>
 
-<nav class="navbar bg-white border-bottom">
+<nav class="navbar bg-white border-bottom"> 
     <div class="container-fluid justify-content-center">
         <span class="navbar-brand">Sistem KRS Mahasiswa</span>
     </div>
@@ -45,21 +46,27 @@ $data = mysqli_query($koneksi,
                 </thead>
                 <tbody>
                 <?php
-                $no = 1;
+                $no = 1; //buat nomor urut
+                // cek kalo datanya ada
                 if (mysqli_num_rows($data) > 0) {
+                    // looping datanya buat ditampilin ke tabel
                     while ($row = mysqli_fetch_assoc($data)) {
-                        $ket = "<span class='ket-nama'>" . htmlspecialchars($row['nama_mhs']) . "</span> Mengambil Mata Kuliah <span class='ket-matkul'>" . htmlspecialchars($row['nama_mk']) . "</span> (" . $row['jumlah_sks'] . " SKS)";
+                        $ket = "<span class='ket-nama'>" . htmlspecialchars($row['nama_mhs']) . 
+                        "</span> Mengambil Mata Kuliah <span class='ket-matkul'>" . 
+                        htmlspecialchars($row['nama_mk']) . "</span> (" . $row['jumlah_sks'] . " SKS)";
                         echo "<tr>
                                 <td>$no</td>
                                 <td>" . htmlspecialchars($row['nama_mhs']) . "</td>
                                 <td>" . htmlspecialchars($row['nama_mk']) . "</td>
                                 <td>$ket</td>
                                 <td>
-                                    <a href='edit.php?id=" . $row['id'] . "' class='btn btn-warning btn-sm'>Edit</a>
-                                    <a href='hapus.php?id=" . $row['id'] . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Yakin hapus?\")'>Hapus</a>
+                                    <a href='edit.php?id=" . $row['id'] . "' 
+                                    class='btn btn-warning btn-sm'>Edit</a>
+                                    <a href='hapus.php?id=" . $row['id'] . "' 
+                                    class='btn btn-danger btn-sm' onclick='return confirm(\"Yakin hapus?\")'>Hapus</a>
                                 </td>
                             </tr>";
-                        $no++;
+                        $no++; // biar nambah 1 terus
                     }
                 } else {
                     echo "<tr><td colspan='5' class='text-center text-muted py-3'>Belum ada data</td></tr>";

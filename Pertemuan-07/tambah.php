@@ -1,20 +1,25 @@
 <?php
-include 'koneksi.php';
+include 'koneksi.php'; //panggil koneksi
 
+//ambil data mhs dan matkul buat ditampilin di dropdown
 $mhs = mysqli_query($koneksi, "SELECT npm, nama FROM mahasiswa ORDER BY nama ASC");
 $mk  = mysqli_query($koneksi, "SELECT kodemk, nama, jumlah_sks FROM matakuliah ORDER BY nama ASC");
 
 $pesan = "";
 
+// kalau tombol simpan di klik
 if (isset($_POST['simpan'])) {
     $npm    = $_POST['npm'];
     $kodemk = $_POST['kodemk'];
 
+    //cek dulu biar mhs ga ambil matkul yng sama 2x
     $cek = mysqli_query($koneksi, "SELECT * FROM krs WHERE mahasiswa_npm='$npm' AND matakuliah_kodemk='$kodemk'");
 
     if (mysqli_num_rows($cek) > 0) {
+        // munculin alert kalau datanya udah ada
         $pesan = "<div class='alert alert-warning'>Mahasiswa ini sudah mengambil mata kuliah tersebut!</div>";
     } else {
+        //kalo aman, simpan ke db
         mysqli_query($koneksi, "INSERT INTO krs (mahasiswa_npm, matakuliah_kodemk) VALUES ('$npm', '$kodemk')");
         header("Location: index.php");
         exit();
