@@ -2,9 +2,11 @@
 $bandaraAsal = ["Soekarno Hatta", "Husein Sastranegara", "Abdul Rachman Saleh", "Juanda"];
 $bandaraTujuan = ["Ngurah Rai", "Hasanuddin", "Inanwatan", "Sultan Iskandar Muda"];
 
+// Buat ngurutin nama bandara
 sort($bandaraAsal);
 sort($bandaraTujuan);
 
+// Buat ngitung pajak berdasarkan bandara asal
 function pajakAsal($bandara) {
     switch ($bandara) {
         case "Soekarno Hatta": return 65000;
@@ -15,6 +17,7 @@ function pajakAsal($bandara) {
     }
 }
 
+// Buat ngitung pajak berdasarkan bandara tujuan
 function pajakTujuan($bandara) {
     switch ($bandara) {
         case "Ngurah Rai": return 85000;
