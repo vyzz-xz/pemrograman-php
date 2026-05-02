@@ -1,51 +1,71 @@
-<?php
+<?php 
+session_start();
+
+// Data Bandara
 $bandaraAsal = ["Soekarno Hatta", "Husein Sastranegara", "Abdul Rachman Saleh", "Juanda"];
 $bandaraTujuan = ["Ngurah Rai", "Hasanuddin", "Inanwatan", "Sultan Iskandar Muda"];
 
-// Buat ngurutin nama bandara
-sort($bandaraAsal);
-sort($bandaraTujuan);
-
-// Buat ngitung pajak berdasarkan bandara asal
-function pajakAsal($bandara) {
-    switch ($bandara) {
-        case "Soekarno Hatta": return 65000;
-        case "Husein Sastranegara": return 50000;
-        case "Abdul Rachman Saleh": return 40000;
-        case "Juanda": return 30000;
-        default: return 0;
-    }
+// Inisialisasi nomor keberangkatan
+if (!isset($_SESSION["noKeberangkatan"])) {
+    $_SESSION["noKeberangkatan"] = 1;
 }
 
-// Buat ngitung pajak berdasarkan bandara tujuan
-function pajakTujuan($bandara) {
-    switch ($bandara) {
-        case "Ngurah Rai": return 85000;
-        case "Hasanuddin": return 70000;
-        case "Inanwatan": return 90000;
-        case "Sultan Iskandar Muda": return 60000;
-        default: return 0;
-    }
-}
-
+// Proses form submission
 if (isset($_POST["kirim"])) {
-    
-    $noKeberangkatan = 1;
-    $tanggalInput      = $_POST['tanggalInput'] ?? date("l jS \of F Y h:i:s A");
-    $NamaMaskapai      = $_POST['inputNamaMaskapai'] ?? '-';
-    $asalPenerbangan   = $_POST['inputAsalPenerbangan'] ?? 'Belum dipilih';
-    $tujuanPenerbangan = $_POST['inputTujuanPenerbangan'] ?? 'Belum dipilih';
-    
-    $hargaTiket        = isset($_POST['inputHarga']) && $_POST['inputHarga'] !== '' ? (int)$_POST['inputHarga'] : 0;
+    $noKeberangkatan = $_SESSION["noKeberangkatan"];
+    $tanggalInput = $_POST["tanggalInput"];
+    $NamaMaskapai = $_POST["inputNamaMaskapai"];
+    $asalPenerbangan = $_POST["inputAsalPenerbangan"];
+    $tujuanPenerbangan = $_POST["inputTujuanPenerbangan"];
+    $hargaTiket = $_POST["inputHarga"];
 
-    $pajakA = pajakAsal($asalPenerbangan);
-    $pajakT = pajakTujuan($tujuanPenerbangan);
+    // Hitung pajak berdasarkan bandara asal
+    switch (strtolower($asalPenerbangan)) {
+        case strtolower($bandaraAsal[0]):
+            $pajakAsal = 65000;
+            break;
+        case strtolower($bandaraAsal[1]):
+            $pajakAsal = 50000;
+            break;
+        case strtolower($bandaraAsal[2]):
+            $pajakAsal = 40000;
+            break;
+        case strtolower($bandaraAsal[3]):
+            $pajakAsal = 30000;
+            break;
+        default:
+            $pajakAsal = 0;
+            break;
+    }
+    // Hitung pajak berdasarkan bandara tujuan
+    switch (strtolower($tujuanPenerbangan)) {
+        case strtolower($bandaraTujuan[0]):
+            $pajakTujuan = 85000;
+            break;
+        case strtolower($bandaraTujuan[1]):
+            $pajakTujuan = 70000;
+            break;
+        case strtolower($bandaraTujuan[2]):
+            $pajakTujuan = 90000;
+            break;
+        case strtolower($bandaraTujuan[3]):
+            $pajakTujuan = 60000;
+            break;
+        default:
+            $pajakTujuan = 0;
+            break;
+    }
     
-    $totalPajak      = $pajakA + $pajakT;
-    $totalHargaTiket = $hargaTiket + $totalPajak;
+    // Hitung total pajak dan total harga tiket
+    $totalPajak = $pajakAsal+$pajakTujuan;
+    $totalHargaTiket = $totalPajak+$hargaTiket;
+
+    $_SESSION["noKeberangkatan"]++;
 
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,8 +78,10 @@ if (isset($_POST["kirim"])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;0,900;1,100&display=swap" rel="stylesheet">
     <title>Penghitung Harga Tiket</title>
 </head>
+
 <body>
     <div class="container">
+        <!-- Input Form -->
         <section class="inputForm">
             <h3 class="title">INPUT FORM</h3>
             <div class="content">
@@ -67,21 +89,19 @@ if (isset($_POST["kirim"])) {
                     <input type="hidden" name="tanggalInput" value="<?=date("l jS \of F Y h:i:s A")?>">
                     <label for="inputNamaMaskapai">Nama Maskapai</label>
                     <br>
-                    <input type="text" name="inputNamaMaskapai" id="inputNamaMaskapai" required>
+                    <input type="text" name="inputNamaMaskapai" id="inputNamaMaskapai">
                     <br>
                     <label for="inputAsalPenerbangan">Pilih Bandara Asal:</label>
                     <br>
-                    <select name="inputAsalPenerbangan" id="inputAsalPenerbangan" required>
-                        <option value="" disabled selected>Pilih Bandara</option>
+                    <select name="inputAsalPenerbangan" id="inputAsalPenerbangan">
                         <?php foreach ($bandaraAsal as $bA) {?>
                             <option value="<?php echo $bA?>"><?php echo $bA?></option>
-                        <?php } ?>
-                    </select>
+                            <?php } ?>
+                        </select>
                     <br>
                     <label for="inputTujuanPenerbangan">Pilih Bandara Tujuan:</label>
                     <br>
-                    <select name="inputTujuanPenerbangan" id="inputTujuanPenerbangan" required>
-                        <option value="" disabled selected>Pilih Bandara</option>
+                    <select name="inputTujuanPenerbangan" id="inputTujuanPenerbangan">
                         <?php foreach ($bandaraTujuan as $bT) {?>
                             <option value="<?php echo $bT?>"><?php echo $bT?></option>
                         <?php } ?>
@@ -89,17 +109,18 @@ if (isset($_POST["kirim"])) {
                     <br>
                     <label for="inputHarga">Harga Tiket</label>
                     <br>
-                    <input type="number" name="inputHarga" id="inputHarga" required>
+                    <input type="number" name="inputHarga" id="inputHarga">
                     <br>
                     <button type="submit" name="kirim">Hitung</button>  
                 </form>
             </div>
 
             <footer>
-                <p>&copy;2025 Brandon H.L.</p>
+                <p>&copy;2025 Muhamad Hafiz
             </footer>
-
         </section>
+
+        <!-- Output -->
         <?php if (isset($_POST["kirim"])) {?>
             <section class="information">
                 <h3 class="title">INFORMASI</h3>
@@ -126,19 +147,19 @@ if (isset($_POST["kirim"])) {
                     <br>
                     <label for="hargaTiketAwal">Harga Tiket</label>
                     <br>
-                    <input type="text" name="hargaTiketAwal" id="hargaTiketAwal" value="Rp <?=number_format($hargaTiket, 0, ',', '.')?>" disabled>
+                    <input type="text" name="hargaTiketAwal" id="hargaTiketAwal" value="Rp<?=$hargaTiket?>" disabled>
                     <br>
                     <label for="pajak">Total Pajak</label>
                     <br>
-                    <input type="text" name="pajak" id="pajak" value="Rp <?=number_format($totalPajak, 0, ',', '.')?>" disabled>
+                    <input type="text" name="pajak" id="pajak" value="Rp<?=$totalPajak?>" disabled>
                     <br>
                     <label for="totalHargaTiket">Total Harga Tiket</label>
                     <br>
-                    <input type="text" name="totalHargaTiket" id="totalHargaTiket" value="Rp <?=number_format($totalHargaTiket, 0, ',', '.')?>" disabled>
-                    <br>
-                </div>
+                    <input type="text" name="totalHargaTiket" id="totalHargaTiket" value="Rp<?=$totalHargaTiket?>" disabled>
+                <br></di
+                v>
             </section>
         <?php } ?>
-        </div>
+    </div>
 </body>
 </html>
