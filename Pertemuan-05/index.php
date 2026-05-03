@@ -1,16 +1,16 @@
 <?php 
 session_start();
 
-// Data Bandara
+// Buat Data Bandara
 $bandaraAsal = ["Soekarno Hatta", "Husein Sastranegara", "Abdul Rachman Saleh", "Juanda"];
 $bandaraTujuan = ["Ngurah Rai", "Hasanuddin", "Inanwatan", "Sultan Iskandar Muda"];
 
-// Inisialisasi nomor keberangkatan
+// Buat Inisialisasi nomor keberangkatan
 if (!isset($_SESSION["noKeberangkatan"])) {
     $_SESSION["noKeberangkatan"] = 1;
 }
 
-// Proses form submission
+// Buat Proses form submission
 if (isset($_POST["kirim"])) {
     $noKeberangkatan = $_SESSION["noKeberangkatan"];
     $tanggalInput = $_POST["tanggalInput"];
@@ -19,7 +19,7 @@ if (isset($_POST["kirim"])) {
     $tujuanPenerbangan = $_POST["inputTujuanPenerbangan"];
     $hargaTiket = $_POST["inputHarga"];
 
-    // Hitung pajak berdasarkan bandara asal
+    // Buat ngehitung pajak berdasarkan bandara asal
     switch (strtolower($asalPenerbangan)) {
         case strtolower($bandaraAsal[0]):
             $pajakAsal = 65000;
@@ -37,7 +37,7 @@ if (isset($_POST["kirim"])) {
             $pajakAsal = 0;
             break;
     }
-    // Hitung pajak berdasarkan bandara tujuan
+    // Buat ngehitung pajak berdasarkan bandara tujuan
     switch (strtolower($tujuanPenerbangan)) {
         case strtolower($bandaraTujuan[0]):
             $pajakTujuan = 85000;
@@ -56,7 +56,7 @@ if (isset($_POST["kirim"])) {
             break;
     }
     
-    // Hitung total pajak dan total harga tiket
+    // Buat ngehitung total pajak sama total harga tiket
     $totalPajak = $pajakAsal+$pajakTujuan;
     $totalHargaTiket = $totalPajak+$hargaTiket;
 
@@ -64,8 +64,6 @@ if (isset($_POST["kirim"])) {
 
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
