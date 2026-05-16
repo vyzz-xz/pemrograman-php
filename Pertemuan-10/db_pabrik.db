@@ -1,0 +1,13 @@
+CREATE TABLE `production_logs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `kode_mesin` varchar(50) NOT NULL,
+  `nama_barang` varchar(100) NOT NULL,
+  `jumlah_lulus` int(11) NOT NULL,
+  `jumlah_reject` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Masukkan 2 data awal untuk bahan testing di Postman nanti
+INSERT INTO `production_logs` (`kode_mesin`, `nama_barang`, `jumlah_lulus`, `jumlah_reject`) VALUES
+('Mesin A1', 'Komponen X', 150, 2),
+('Mesin B2', 'Komponen Y', 200, 5);
