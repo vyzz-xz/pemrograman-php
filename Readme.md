@@ -10,7 +10,7 @@ Berikut adalah daftar materi dan tugas yang ada di dalam repository ini, disusun
 | :--- | :--- |
 | 📁 `Pertemuan-01` | Pengenalan & Logika Dasar (Switch) |
 | 📁 `Pertemuan-02` | Lanjutan Logika Dasar (Switch) |
-| 📁 `Pertemuan-03` | Pembuatan Kalkulator Sederhana (JavaScript) |
+| 📁 `Pertemuan-03` | Pembuatan Kalkulator Sederhana |
 | 📁 `Pertemuan-04` | Simulasi Sistem Autentikasi |
 | 📁 `Pertemuan-05` | Web Perhitungan Rute Penerbangan |
 | 📁 `Pertemuan-06` | Update Kode Database |
@@ -31,8 +31,7 @@ Untuk folder yang berisi file PHP dan Database (mulai dari Pertemuan 6 hingga 10
 1. Pastikan aplikasi **XAMPP** sudah terinstall.
 2. Jalankan modul **Apache** dan **MySQL** pada XAMPP Control Panel.
 3. *Clone* atau letakkan repository ini ke dalam folder `htdocs`.
-4. Jika ada instruksi pembuatan database, buat database dan jalankan query SQL-nya di `localhost/phpmyadmin` (misalnya untuk database KRS, Auth, dan database pabrik untuk API).
-5. Akses melalui browser dengan URL: `http://localhost/nama-folder-repo/nama-folder-pertemuan`
+4. Akses melalui browser dengan URL: `http://localhost/nama-folder-repo/nama-folder-pertemuan`
 
 ---
-👤 **Muhamad Hafiz** 🎓 Informatika - Universitas Singaperbangsa Karawang
+**2026 Copyright** | **Muhamad Hafiz** | **Informatika** | **Universitas Singaperbangsa Karawang**
