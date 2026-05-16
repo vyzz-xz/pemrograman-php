@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule ^produksi/?$ produksi.php [NC,L]
+RewriteRule ^produksi/([0-9]+)/?$ produksi.php?id=$1 [NC,L]
