@@ -1,17 +1,20 @@
 <?php
-// Memanggil file Book.php agar class-nya bisa digunakan di sini
+// panggil file book
 require_once 'book.php';
 
 echo "<h3>Testing 1: Input Benar</h3>";
+// test masukin data yang bener
 $book1 = new Book("BK12", "Pemrograman PHP", 10);
-echo "Code Book: " . $book1->getCodeBook() . "<br>";
-echo "Nama Buku: " . $book1->getName() . "<br>";
-echo "Quantity: " . $book1->getQty() . "<br><br>";
+echo "Code Book: " . $book1->getCodeBook() . "<br>"; 
+echo "Nama Buku: " . $book1->getName() . "<br>"; 
+echo "Quantity: " . $book1->getQty() . "<br><br>"; 
 
 echo "<h3>Testing 2: Input Salah (Format Code Book Salah)</h3>";
+// test kode buku disalahin (huruf kecil & 3 angka)
 $book2 = new Book("bk123", "Belajar OOP", 5); 
-echo "Code Book: " . $book2->getCodeBook() . "<br><br>";
+echo "Code Book: " . $book2->getCodeBook() . "<br><br>"; 
 
 echo "<h3>Testing 3: Input Salah (QTY Negatif/Nol)</h3>";
+// test qty disalahin (diisi nol)
 $book3 = new Book("CS99", "Struktur Data", 0); 
 echo "Quantity: " . $book3->getQty() . "<br><br>";
